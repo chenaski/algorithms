@@ -7,7 +7,7 @@ export function findSmallest(list) {
 
 export function selectionSearch(list, getItemIndex) {
   return list.reduce(
-    ([sortedList, targetList], item, index) => {
+    ([sortedList, targetList]) => {
       const foundIndex = getItemIndex(targetList);
       sortedList.push(targetList[foundIndex]);
       targetList.splice(foundIndex, 1);
@@ -16,5 +16,3 @@ export function selectionSearch(list, getItemIndex) {
     [[], [...list]]
   )[0];
 }
-
-console.log(selectionSearch([5, 4, 3, 2, 1], findSmallest));
