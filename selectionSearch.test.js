@@ -1,4 +1,8 @@
-import { findSmallest, selectionSearch } from "./selectionSearch.js";
+import {
+  findSmallest,
+  recursiveSelectionSearch,
+  selectionSearch,
+} from "./selectionSearch.js";
 
 test.each([
   { list: [5, 3, 7], result: 1 },
@@ -12,7 +16,7 @@ test.each([
   }
 );
 
-test.each([
+const cases = [
   { list: [5, 4, 3, 2, 1], result: [1, 2, 3, 4, 5], findItem: findSmallest },
   {
     list: [3, 5, 8, 0, 4, 2, 6, 1, 9, 7],
@@ -24,9 +28,16 @@ test.each([
     result: [-10, -5, 0, 5, 10],
     findItem: findSmallest,
   },
-])(
+];
+test.each(cases)(
   "selectionSearch: $list -> $result [$findItem]",
   ({ list, result, findItem }) => {
     expect(selectionSearch(list, findItem)).toEqual(result);
+  }
+);
+test.each(cases)(
+  "recursiveSelectionSearch: $list -> $result [$findItem]",
+  ({ list, result, findItem }) => {
+    expect(recursiveSelectionSearch(list, findItem)).toEqual(result);
   }
 );

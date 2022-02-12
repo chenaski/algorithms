@@ -16,3 +16,15 @@ export function selectionSearch(list, getItemIndex) {
     [[], [...list]]
   )[0];
 }
+
+export function recursiveSelectionSearch(list, getItemIndex) {
+  if (list.length < 2) return list;
+  const foundIndex = getItemIndex(list);
+  return [
+    list[foundIndex],
+    ...recursiveSelectionSearch(
+      (list.splice(foundIndex, 1), list),
+      getItemIndex
+    ),
+  ];
+}
