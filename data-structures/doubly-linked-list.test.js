@@ -141,7 +141,6 @@ describe("DoublyLinkedList", () => {
     expect(doublyLinkedList.tail).toBe(expectedValue5);
 
     doublyLinkedList.traverse((node, i) => {
-      console.log(node);
       expect(node.value).toBe(expectedOrder[i]);
     });
   });
