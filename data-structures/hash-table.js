@@ -29,7 +29,6 @@ export class HashTable {
     if (bucket instanceof LinkedList) {
       let foundNode;
       bucket.forEach(({ currentNode }) => {
-        console.log(currentNode);
         if (currentNode.value.key === key) {
           foundNode = currentNode;
           return true;
