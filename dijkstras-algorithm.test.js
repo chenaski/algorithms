@@ -1,4 +1,4 @@
-import { dijkstrasAlgorithm } from "./dijkstrasAlgorithm.js";
+import { dijkstrasAlgorithm } from "./dijkstras-algorithm.js";
 
 const graph1 = {
   book: {
@@ -85,9 +85,6 @@ test.each([
     targetNode: "5",
     result: { path: ["1", "2", "5"], cost: 4 },
   },
-])(
-  "dijkstrasAlgorithm, path: $result.path",
-  ({ graph, startNode, targetNode, result }) => {
-    expect(dijkstrasAlgorithm(graph, startNode, targetNode)).toEqual(result);
-  }
-);
+])("dijkstrasAlgorithm, path: $result.path", ({ graph, startNode, targetNode, result }) => {
+  expect(dijkstrasAlgorithm(graph, startNode, targetNode)).toEqual(result);
+});

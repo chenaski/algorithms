@@ -1,4 +1,4 @@
-import { quickSort } from "./quickSort.js";
+import { quickSort } from "./quick-sort.js";
 
 test.each([
   { list: [5, 6, 4, 3, 7], result: [3, 4, 5, 6, 7] },

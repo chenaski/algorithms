@@ -13,10 +13,7 @@ export function dijkstrasAlgorithm(graph, startNode, targetNode) {
     else processed.add(node);
 
     for (const [sibling, siblingCost] of Object.entries(siblings)) {
-      if (
-        !costsAndParents[sibling] ||
-        costsAndParents[node].cost + siblingCost < costsAndParents[sibling].cost
-      ) {
+      if (!costsAndParents[sibling] || costsAndParents[node].cost + siblingCost < costsAndParents[sibling].cost) {
         costsAndParents[sibling] = {
           parent: node,
           cost: costsAndParents[node].cost + siblingCost,
