@@ -112,10 +112,34 @@ export class BinaryNode {
     this.right?.postOrderTraversal(cb);
     cb(this.value, this);
   }
+
+  get balanceFactor() {
+    return this.leftHeight - this.rightHeight;
+  }
+
+  get leftHeight() {
+    if (!this.left) {
+      return 0;
+    }
+
+    return this.left.height + 1;
+  }
+
+  get rightHeight() {
+    if (!this.right) {
+      return 0;
+    }
+
+    return this.right.height + 1;
+  }
+
+  get height() {
+    return Math.max(this.leftHeight, this.rightHeight);
+  }
 }
 
 export class BinarySearchTree {
-  #root;
+  root;
 
   toObject() {
     const result = {};
@@ -136,51 +160,51 @@ export class BinarySearchTree {
   }
 
   insert(value) {
-    if (!this.#root) {
-      this.#root = new BinaryNode(null, value);
+    if (!this.root) {
+      this.root = new BinaryNode(null, value);
       return;
     }
 
-    this.#root.insert(value);
+    this.root.insert(value);
   }
 
   contains(value) {
-    if (!this.#root) {
+    if (!this.root) {
       return false;
     }
 
-    return this.#root.contains(value);
+    return this.root.contains(value);
   }
 
   remove(value) {
-    if (!this.#root) {
+    if (!this.root) {
       return false;
     }
 
-    return this.#root.remove(value);
+    return this.root.remove(value);
   }
 
   inOrderTraversal(cb) {
-    if (!this.#root) {
+    if (!this.root) {
       return;
     }
 
-    return this.#root.inOrderTraversal(cb);
+    return this.root.inOrderTraversal(cb);
   }
 
   preOrderTraversal(cb) {
-    if (!this.#root) {
+    if (!this.root) {
       return;
     }
 
-    return this.#root.preOrderTraversal(cb);
+    return this.root.preOrderTraversal(cb);
   }
 
   postOrderTraversal(cb) {
-    if (!this.#root) {
+    if (!this.root) {
       return;
     }
 
-    return this.#root.postOrderTraversal(cb);
+    return this.root.postOrderTraversal(cb);
   }
 }
