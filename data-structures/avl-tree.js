@@ -46,6 +46,7 @@ export class AVLTree extends BinarySearchTree {
 
     if (nodeLeft.right) {
       node.left = nodeLeft.right;
+      node.left.parent = node;
       delete nodeLeft.right;
     }
 
@@ -59,8 +60,17 @@ export class AVLTree extends BinarySearchTree {
     const nodeLeftRight = nodeLeft.right;
     delete nodeLeft.right;
 
+    if (nodeLeftRight.left) {
+      nodeLeft.right = nodeLeftRight.left;
+      nodeLeft.right.parent = nodeLeft;
+      delete nodeLeftRight.left;
+    }
+
     node.left = nodeLeftRight;
+    node.left.parent = node;
+
     nodeLeftRight.left = nodeLeft;
+    nodeLeftRight.left.parent = nodeLeftRight;
 
     this.rotateLeftLeft(node);
   }
@@ -75,13 +85,17 @@ export class AVLTree extends BinarySearchTree {
       node.parent = nodeRight;
     } else {
       this.root = nodeRight;
+      delete nodeRight.parent;
     }
 
     if (nodeRight.left) {
       node.right = nodeRight.left;
+      node.right.parent = node;
+      delete nodeRight.left;
     }
 
     nodeRight.left = node;
+    nodeRight.left.parent = nodeRight;
   }
 
   rotateRightLeft(node) {
@@ -91,8 +105,17 @@ export class AVLTree extends BinarySearchTree {
     const nodeRightLeft = nodeRight.left;
     delete nodeRight.left;
 
+    if (nodeRightLeft.right) {
+      nodeRight.left = nodeRightLeft.right;
+      nodeRight.left.parent = nodeRight;
+      delete nodeRightLeft.right;
+    }
+
     node.right = nodeRightLeft;
+    node.right.parent = node;
+
     nodeRightLeft.right = nodeRight;
+    nodeRightLeft.right.parent = nodeRightLeft;
 
     this.rotateRightRight(node);
   }
