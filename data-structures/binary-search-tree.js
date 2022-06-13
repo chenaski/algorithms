@@ -39,7 +39,7 @@ export class BinaryNode {
       if (nodeToRemove.parent) {
         nodeToRemove.parent.removeChild(value);
       } else {
-        nodeToRemove.value = undefined;
+        delete nodeToRemove.value;
       }
     } else if (nodeToRemove.left && nodeToRemove.right) {
       const nextBiggerNode = nodeToRemove.right.findMin();
@@ -68,7 +68,7 @@ export class BinaryNode {
     const side = value === this.left?.value ? "left" : value === this.right?.value ? "right" : null;
 
     if (side) {
-      this[side] = undefined;
+      delete this[side];
       return true;
     }
 
@@ -81,6 +81,7 @@ export class BinaryNode {
 
     if (side) {
       this[side] = replacementNode;
+      replacementNode.parent = this;
       return true;
     }
 
@@ -153,6 +154,10 @@ export class BinarySearchTree {
 
       if (node.right) {
         result[node.value].right = node.right.value;
+      }
+
+      if (node.parent) {
+        result[node.value].parent = node.parent.value;
       }
     });
 

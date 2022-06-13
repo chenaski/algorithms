@@ -42,6 +42,7 @@ export class AVLTree extends BinarySearchTree {
       node.parent = nodeLeft;
     } else {
       this.root = nodeLeft;
+      delete nodeLeft.parent;
     }
 
     if (nodeLeft.right) {
@@ -51,6 +52,7 @@ export class AVLTree extends BinarySearchTree {
     }
 
     nodeLeft.right = node;
+    nodeLeft.right.parent = nodeLeft;
   }
 
   rotateLeftRight(node) {

@@ -15,16 +15,16 @@ beforeEach(() => {
 test("inserts", () => {
   const expectedTree = {
     5: { left: 3, right: 7 },
-    7: { left: 6, right: 10 },
-    10: { left: 9, right: 20 },
-    3: { left: 2, right: 4 },
-    6: {},
-    9: {},
-    20: { left: 18 },
-    18: {},
-    4: {},
-    2: { left: 1 },
-    1: {},
+    7: { left: 6, right: 10, parent: 5 },
+    10: { left: 9, right: 20, parent: 7 },
+    3: { left: 2, right: 4, parent: 5 },
+    6: { parent: 7 },
+    9: { parent: 10 },
+    20: { left: 18, parent: 10 },
+    18: { parent: 20 },
+    4: { parent: 3 },
+    2: { left: 1, parent: 3 },
+    1: { parent: 2 },
   };
 
   expect(bst.toObject()).toEqual(expectedTree);
@@ -41,14 +41,14 @@ describe("remove", () => {
     const leavesToRemove = [1, 9];
     const expectedTree = {
       5: { left: 3, right: 7 },
-      7: { left: 6, right: 10 },
-      10: { right: 20 },
-      3: { left: 2, right: 4 },
-      6: {},
-      20: { left: 18 },
-      18: {},
-      4: {},
-      2: {},
+      7: { left: 6, right: 10, parent: 5 },
+      10: { right: 20, parent: 7 },
+      3: { left: 2, right: 4, parent: 5 },
+      6: { parent: 7 },
+      20: { left: 18, parent: 10 },
+      18: { parent: 20 },
+      4: { parent: 3 },
+      2: { parent: 3 },
     };
 
     for (const value of leavesToRemove) {
@@ -66,14 +66,14 @@ describe("remove", () => {
     const leavesToRemove = [2, 20];
     const expectedTree = {
       5: { left: 3, right: 7 },
-      7: { left: 6, right: 10 },
-      10: { left: 9, right: 18 },
-      3: { left: 1, right: 4 },
-      6: {},
-      9: {},
-      18: {},
-      4: {},
-      1: {},
+      7: { left: 6, right: 10, parent: 5 },
+      10: { left: 9, right: 18, parent: 7 },
+      3: { left: 1, right: 4, parent: 5 },
+      6: { parent: 7 },
+      9: { parent: 10 },
+      18: { parent: 10 },
+      4: { parent: 3 },
+      1: { parent: 3 },
     };
 
     for (const value of leavesToRemove) {
@@ -91,14 +91,14 @@ describe("remove", () => {
     const leavesToRemove = [3, 10];
     const expectedTree = {
       5: { left: 4, right: 7 },
-      7: { left: 6, right: 18 },
-      6: {},
-      9: {},
-      20: {},
-      18: { left: 9, right: 20 },
-      4: { left: 2 },
-      2: { left: 1 },
-      1: {},
+      7: { left: 6, right: 18, parent: 5 },
+      6: { parent: 7 },
+      9: { parent: 18 },
+      20: { parent: 18 },
+      18: { left: 9, right: 20, parent: 7 },
+      4: { left: 2, parent: 5 },
+      2: { left: 1, parent: 4 },
+      1: { parent: 2 },
     };
 
     for (const value of leavesToRemove) {
@@ -115,16 +115,16 @@ describe("remove", () => {
   test("root node", () => {
     const leavesToRemove = [5];
     const expectedTree = {
-      7: { right: 10 },
-      10: { left: 9, right: 20 },
-      3: { left: 2, right: 4 },
       6: { left: 3, right: 7 },
-      9: {},
-      20: { left: 18 },
-      18: {},
-      4: {},
-      2: { left: 1 },
-      1: {},
+      7: { right: 10, parent: 6 },
+      10: { left: 9, right: 20, parent: 7 },
+      3: { left: 2, right: 4, parent: 6 },
+      9: { parent: 10 },
+      20: { left: 18, parent: 10 },
+      18: { parent: 20 },
+      4: { parent: 3 },
+      2: { left: 1, parent: 3 },
+      1: { parent: 2 },
     };
 
     for (const value of leavesToRemove) {
