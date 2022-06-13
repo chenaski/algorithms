@@ -65,6 +65,18 @@ describe("keeps balance after insertion", () => {
         11: {},
       },
     },
+    {
+      title: "when right-left node has right child",
+      fixtures: [5, 11, 3, 7, 13, 9],
+      expectedTree: {
+        7: { left: 5, right: 11 },
+        5: { left: 3 },
+        11: { left: 9, right: 13 },
+        3: {},
+        9: {},
+        13: {},
+      },
+    },
   ])("right-left rotation ($title)", ({ fixtures, expectedTree }) => {
     const avlTree = new AVLTree();
 
@@ -137,6 +149,18 @@ describe("keeps balance after insertion", () => {
         1: {},
         5: {},
         9: {},
+      },
+    },
+    {
+      title: "when left-right node has left child",
+      fixtures: [9, 11, 3, 7, 1, 5],
+      expectedTree: {
+        7: { left: 3, right: 9 },
+        9: { right: 11 },
+        3: { left: 1, right: 5 },
+        1: {},
+        5: {},
+        11: {},
       },
     },
   ])("left-right rotation ($title)", ({ fixtures, expectedTree }) => {
