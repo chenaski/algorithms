@@ -173,7 +173,7 @@ describe("traversal", () => {
 
 test("calculates height of tree", () => {
   expect(bst.root.height).toEqual(4);
-  expect(bst.root.left).toEqual(2);
-  expect(bst.root.right).toEqual(3);
-  expect(bst.root.right.left).toEqual(0);
+  expect(bst.root.left.height).toEqual(2);
+  expect(bst.root.right.height).toEqual(3);
+  expect(bst.root.right.left.height).toEqual(0);
 });
