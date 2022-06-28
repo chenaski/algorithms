@@ -171,9 +171,68 @@ describe("traversal", () => {
   });
 });
 
+test("toObject", () => {
+  const expectedTree = {
+    5: { left: 3, right: 7 },
+    7: { left: 6, right: 10, parent: 5 },
+    10: { left: 9, right: 20, parent: 7 },
+    3: { left: 2, right: 4, parent: 5 },
+    6: { parent: 7 },
+    9: { parent: 10 },
+    20: { left: 18, parent: 10 },
+    18: { parent: 20 },
+    4: { parent: 3 },
+    2: { left: 1, parent: 3 },
+    1: { parent: 2 },
+  };
+
+  expect(bst.toObject()).toEqual(expectedTree);
+});
+
+test("fromObject", () => {
+  const rootNode = 5;
+  const tree = {
+    5: { left: 3, right: 7, meta: { id: 1 } },
+    7: { left: 6, right: 10, parent: 5, meta: { id: 2 } },
+    10: { left: 9, right: 20, parent: 7, meta: { id: 3 } },
+    3: { left: 2, right: 4, parent: 5, meta: { id: 4 } },
+    6: { parent: 7, meta: { id: 5 } },
+    9: { parent: 10, meta: { id: 6 } },
+    20: { left: 18, parent: 10, meta: { id: 7 } },
+    18: { parent: 20, meta: { id: 8 } },
+    4: { parent: 3, meta: { id: 9 } },
+    2: { left: 1, parent: 3, meta: { id: 10 } },
+    1: { parent: 2, meta: { id: 11 } },
+  };
+
+  bst.fromObject(tree);
+
+  const checkNode = (node, nodeValue) => {
+    const nodeAsObject = tree[nodeValue];
+
+    expect(node.value).toEqual(nodeValue);
+    expect(node.left?.value).toEqual(nodeAsObject.left);
+    expect(node.right?.value).toEqual(nodeAsObject.right);
+    expect(node.parent?.value).toEqual(nodeAsObject.parent);
+    expect(Object.fromEntries(node.meta.entries())).toEqual(nodeAsObject.meta);
+
+    nodeAsObject.left && checkNode(node.left, nodeAsObject.left);
+    nodeAsObject.right && checkNode(node.right, nodeAsObject.right);
+  };
+
+  checkNode(bst.root, rootNode);
+});
+
 test("calculates height of tree", () => {
-  expect(bst.root.height).toEqual(4);
-  expect(bst.root.left.height).toEqual(2);
-  expect(bst.root.right.height).toEqual(3);
-  expect(bst.root.right.left.height).toEqual(0);
+  const getHeight = (node) => {
+    if (!node || (!node.left && !node.right)) {
+      return 0;
+    }
+
+    return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+  };
+
+  bst.inOrderTraversal((_, node) => {
+    expect(node.height).toEqual(getHeight(node));
+  });
 });

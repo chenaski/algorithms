@@ -1,7 +1,24 @@
 export class BinaryNode {
-  constructor(parent, value) {
-    this.parent = parent;
+  meta = new Map();
+
+  constructor({ parent, value, left, right, meta }) {
     this.value = value;
+
+    if (parent) {
+      this.parent = parent;
+    }
+
+    if (left) {
+      this.left = left;
+    }
+
+    if (right) {
+      this.right = right;
+    }
+
+    if (meta) {
+      this.meta = new Map(Object.entries(meta));
+    }
   }
 
   insert(value) {
@@ -10,7 +27,7 @@ export class BinaryNode {
     if (this[side]) {
       this[side].insert(value);
     } else {
-      this[side] = new BinaryNode(this, value);
+      this[side] = new BinaryNode({ parent: this, value });
     }
   }
 
@@ -159,14 +176,42 @@ export class BinarySearchTree {
       if (node.parent) {
         result[node.value].parent = node.parent.value;
       }
+
+      if (node.meta.size) {
+        result[node.value].meta = Object.fromEntries(node.meta.entries());
+      }
     });
 
     return result;
   }
 
+  fromObject(tree) {
+    const [rootNodeValue, rootNodeData] = Object.entries(tree).find(
+      ([_, data]) => data.parent === null || data.parent === undefined
+    );
+
+    this.root = new BinaryNode({ value: +rootNodeValue, meta: rootNodeData.meta });
+
+    const setChildren = (node) => {
+      const nodeData = tree[node.value];
+
+      const sides = ["left", "right"];
+
+      sides.forEach((side) => {
+        if (!nodeData[side]) return;
+        const childNodeData = tree[nodeData[side]];
+        const childNode = new BinaryNode({ parent: node, value: nodeData[side], meta: childNodeData.meta });
+        setChildren(childNode);
+        node[side] = childNode;
+      });
+    };
+
+    setChildren(this.root);
+  }
+
   insert(value) {
     if (!this.root) {
-      this.root = new BinaryNode(null, value);
+      this.root = new BinaryNode({ value });
       return;
     }
 
