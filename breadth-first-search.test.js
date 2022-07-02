@@ -1,6 +1,6 @@
 import { breadthFirstSearch } from "./breadth-first-search.js";
 
-// https://excalidraw.com/#json=gAqGKz_BDHaJHGA-i4exT,HNBAzEhUR1MkTT5V_V5JKA
+// https://excalidraw.com/#json=gdLbRSu7EGA_WN3qxDmUT,9U3ej8qZgkJ3_Z31PJv3pQ
 const graph = {
   1: [2, 3, 4],
   2: [3, 5],
