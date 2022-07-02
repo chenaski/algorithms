@@ -150,4 +150,28 @@ describe("LinkedList", () => {
     expect(linkedList.pop()).toBe(expectedValue1);
     expect(linkedList.shift()).toBe(expectedValue5);
   });
+
+  test("size", () => {
+    const linkedList = new LinkedList();
+
+    const values = [Symbol("1"), Symbol("2"), Symbol("3"), Symbol("4"), Symbol("5")];
+
+    for (const value of values) {
+      linkedList.push(value);
+    }
+
+    expect(linkedList.size()).toEqual(values.length);
+  });
+
+  test("toArray", () => {
+    const linkedList = new LinkedList();
+
+    const values = [Symbol("1"), Symbol("2"), Symbol("3"), Symbol("4"), Symbol("5")];
+
+    for (const value of values) {
+      linkedList.push(value);
+    }
+
+    expect(linkedList.toArray()).toEqual(values);
+  });
 });

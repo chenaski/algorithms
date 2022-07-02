@@ -83,4 +83,24 @@ export class LinkedList {
     this.#head = newHead;
     this.#tail = newTail;
   }
+
+  toArray() {
+    const values = [];
+
+    this.forEach(({ currentNode }) => {
+      values.push(currentNode.value);
+    });
+
+    return values;
+  }
+
+  size() {
+    let count = 0;
+
+    this.forEach(() => {
+      count += 1;
+    });
+
+    return count;
+  }
 }
