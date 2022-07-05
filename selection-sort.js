@@ -6,15 +6,19 @@ export function findSmallest(list) {
 }
 
 export function selectionSort(list, getItemIndex) {
-  return list.reduce(
-    ([sortedList, targetList]) => {
-      const foundIndex = getItemIndex(targetList);
-      sortedList.push(targetList[foundIndex]);
-      targetList.splice(foundIndex, 1);
-      return [sortedList, targetList];
-    },
-    [[], [...list]]
-  )[0];
+  let currentIndex = 0;
+
+  while (currentIndex <= list.length - 1) {
+    const unsortedList = [...list].splice(currentIndex);
+    const foundIndexInUnsortedList = getItemIndex(unsortedList);
+    const foundIndex = foundIndexInUnsortedList + currentIndex;
+
+    [list[currentIndex], list[foundIndex]] = [list[foundIndex], list[currentIndex]];
+
+    currentIndex++;
+  }
+
+  return list;
 }
 
 export function recursiveSelectionSort(list, getItemIndex) {
