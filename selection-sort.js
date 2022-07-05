@@ -5,7 +5,7 @@ export function findSmallest(list) {
   }, 0);
 }
 
-export function selectionSearch(list, getItemIndex) {
+export function selectionSort(list, getItemIndex) {
   return list.reduce(
     ([sortedList, targetList]) => {
       const foundIndex = getItemIndex(targetList);
@@ -17,8 +17,8 @@ export function selectionSearch(list, getItemIndex) {
   )[0];
 }
 
-export function recursiveSelectionSearch(list, getItemIndex) {
+export function recursiveSelectionSort(list, getItemIndex) {
   if (list.length < 2) return list;
   const foundIndex = getItemIndex(list);
-  return [list[foundIndex], ...recursiveSelectionSearch((list.splice(foundIndex, 1), list), getItemIndex)];
+  return [list[foundIndex], ...recursiveSelectionSort((list.splice(foundIndex, 1), list), getItemIndex)];
 }
