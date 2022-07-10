@@ -1,7 +1,13 @@
-export function countSort(list) {
+export function countSort(list, position) {
   let counts = [];
 
-  for (const item of list) {
+  const getItem = (item) => {
+    const itemStr = item.toString();
+    return position ? itemStr[position] : item;
+  };
+
+  for (let item of list) {
+    item = getItem(item);
     counts[item] = (counts[item] || 0) + 1;
   }
 
@@ -12,8 +18,10 @@ export function countSort(list) {
   let sortedList = [];
 
   for (let i = list.length - 1; i >= 0; i--) {
-    sortedList[counts[list[i]] - 1] = list[i];
-    counts[list[i]]--;
+    const item = getItem(list[i]);
+
+    sortedList[counts[item] - 1] = list[i];
+    counts[item]--;
   }
 
   return sortedList;
