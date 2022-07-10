@@ -22,9 +22,9 @@ const cases = [
     findItem: findSmallest,
   },
 ];
-test.each(cases)("selectionSearch: $list -> $result [$findItem]", ({ list, result, findItem }) => {
+test.each(cases)("selectionSort: $list -> $result [$findItem]", ({ list, result, findItem }) => {
   expect(selectionSort(list, findItem)).toEqual(result);
 });
-test.each(cases)("recursiveSelectionSearch: $list -> $result [$findItem]", ({ list, result, findItem }) => {
+test.each(cases)("recursiveSelectionSort: $list -> $result [$findItem]", ({ list, result, findItem }) => {
   expect(recursiveSelectionSort(list, findItem)).toEqual(result);
 });
